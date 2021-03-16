@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 import {shouldUpdate, extractComponentProps} from '../../../component-updater';
 import styleConstructor from './style';
 import Dot from '../dot';
@@ -11,6 +11,7 @@ const MARKING_TYPES = {
   multiDot: 'multi-dot',
   period: 'period',
   multiPeriod: 'multi-period',
+  image: 'image',
   custom: 'custom'
 };
 
@@ -46,7 +47,9 @@ export default class Marking extends Component {
     //multi-dot
     dots: PropTypes.arrayOf(PropTypes.shape(DOT)),
     //multi-period
-    periods: PropTypes.arrayOf(PropTypes.shape(PERIOD))
+    periods: PropTypes.arrayOf(PropTypes.shape(PERIOD)),
+    // image
+    image: PropTypes.image,
   };
 
   static markingTypes = MARKING_TYPES;
@@ -70,7 +73,8 @@ export default class Marking extends Component {
       'selectedTextColor', 
       'dotColor',
       'dots',
-      'periods'
+      'periods',
+      'image'
     ]);
   }
 
@@ -88,16 +92,32 @@ export default class Marking extends Component {
   }
 
   renderMarkingByType() {
-    const {type, dots, periods} = this.props;
+    const {type, dots, image, periods} = this.props;
 
     switch (type) {
       case MARKING_TYPES.multiDot:
         return this.renderMultiMarkings(this.style.dots, dots); 
       case MARKING_TYPES.multiPeriod:
         return this.renderMultiMarkings(this.style.periods, periods);    
+      case MARKING_TYPES.image:
+        return this.renderImageMarkings(this.style.image, image);    
       default:
         return this.renderDot();
     }
+  }
+
+  renderImageMarkings(containerStyle, image) {
+    const {marked} = this.props;
+    if (marked && image) {
+      return (
+        <View style={containerStyle}>
+          {image && <Image source={image} style={{width: '100%', height: '100%'}} resizeMode="contain" />}
+        </View>
+      );
+    }
+    return (
+      <View style={containerStyle} />
+    );
   }
 
   renderMultiMarkings(containerStyle, items) {

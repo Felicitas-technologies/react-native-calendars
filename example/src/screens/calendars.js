@@ -32,6 +32,41 @@ const CalendarsScreen = () => {
     return disabledDates;
   };
 
+  const renderCalendarWithImage = () => {
+    return (
+      <Fragment>
+        <Text style={styles.text}>Calendar with image</Text>
+        <Calendar
+          testID={testIDs.calendars.FIRST}
+          current={'2020-02-02'}
+          markingType="image"
+          style={styles.calendar}
+          theme={{
+            'stylesheet.day.basic': {
+              base: {
+                width: '80%',
+              },
+            },
+            textDayStyle: {
+              fontSize: 11,
+              textAlign: 'center'
+            }
+          }}
+          markedDates={{
+            '2020-03-04': {
+              marked: true,
+              image: require('../img/smile.png')
+            },
+            '2020-02-03': {
+              marked: true,
+              image: require('../img/smile.png')
+            }
+          }}
+        />
+      </Fragment>
+    );
+  };
+
   const renderCalendarWithSelectableDate = () => {
     return (
       <Fragment>
@@ -431,6 +466,7 @@ const CalendarsScreen = () => {
   const renderExamples = () => {
     return (
       <Fragment>
+        {renderCalendarWithImage()}
         {renderCalendarWithSelectableDate()}
         {renderCalendarWithWeekNumbers()}
         {renderCalendarWithMinAndMaxDates()}

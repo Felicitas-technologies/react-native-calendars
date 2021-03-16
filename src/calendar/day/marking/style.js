@@ -17,6 +17,9 @@ export default function styleConstructor(theme = {}) {
       marginVertical: 1,
       backgroundColor: appStyle.dotColor
     },
+    image: {
+      height: 25,
+    },
     startingDay: {
       borderTopLeftRadius: 2,
       borderBottomLeftRadius: 2,
