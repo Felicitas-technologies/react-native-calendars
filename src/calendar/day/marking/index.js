@@ -49,7 +49,7 @@ export default class Marking extends Component {
     //multi-period
     periods: PropTypes.arrayOf(PropTypes.shape(PERIOD)),
     // image
-    image: PropTypes.image,
+    image: PropTypes.any,
   };
 
   static markingTypes = MARKING_TYPES;
